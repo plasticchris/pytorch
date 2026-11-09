@@ -1,5 +1,17 @@
 #pragma once
 
+#if defined(__HIP_PLATFORM_AMD__) && defined(__GNUC__) && !defined(__clang__) && \
+    __GNUC__ >= 16 && __cplusplus >= 202002L
+// Older HIP SDKs define __noinline__ as a macro. GCC16's chrono/format uses
+// the same token inside a GNU attribute, where macro expansion is invalid.
+// Parse that standard header once with the macro hidden, then restore HIP's
+// exact definition for callers. Keep this compatibility shim host-GCC-only.
+#pragma push_macro("__noinline__")
+#undef __noinline__
+#include <chrono>
+#pragma pop_macro("__noinline__")
+#endif
+
 #ifndef C10_USING_CUSTOM_GENERATED_MACROS
 
 // We have not yet modified the AMD HIP build to generate this file so
