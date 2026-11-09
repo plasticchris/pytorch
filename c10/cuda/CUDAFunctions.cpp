@@ -1,3 +1,6 @@
+// Parse chrono/format before HIP's __noinline__ macro is defined.
+#include <chrono>
+
 #include <c10/cuda/CUDAFunctions.h>
 #include <c10/macros/Macros.h>
 #include <c10/util/WaitCounter.h>
