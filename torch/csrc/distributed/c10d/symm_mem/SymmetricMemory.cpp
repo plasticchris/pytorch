@@ -1,3 +1,6 @@
+// Parse chrono/format before HIP's __noinline__ macro reaches these headers.
+#include <chrono>
+
 #include <torch/csrc/distributed/c10d/symm_mem/CUDASymmetricMemoryTypes.hpp>
 #include <torch/csrc/distributed/c10d/symm_mem/SymmetricMemory.hpp>
 
