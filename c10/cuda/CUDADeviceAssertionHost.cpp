@@ -1,3 +1,6 @@
+// Parse chrono/format before HIP's __noinline__ macro is defined.
+#include <chrono>
+
 #include <c10/cuda/CUDADeviceAssertionHost.h>
 #include <c10/cuda/CUDAException.h>
 #include <c10/cuda/CUDAFunctions.h>
@@ -7,7 +10,6 @@
 #include <memory>
 #include <string>
 #ifdef TORCH_USE_CUDA_DSA
-#include <chrono>
 #include <thread>
 #endif
 
