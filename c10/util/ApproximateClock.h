@@ -4,7 +4,18 @@
 
 #include <c10/macros/Export.h>
 #include <array>
+#if defined(__HIP_PLATFORM_AMD__) && defined(__GNUC__) && !defined(__clang__) && \
+    __GNUC__ >= 16 && __cplusplus >= 202002L
+// Older HIP SDKs define __noinline__ as a macro. GCC16's chrono/format uses
+// that token inside a GNU attribute, where macro expansion is invalid. Parse
+// chrono with the macro hidden and restore the exact HIP definition after.
+#pragma push_macro("__noinline__")
+#undef __noinline__
 #include <chrono>
+#pragma pop_macro("__noinline__")
+#else
+#include <chrono>
+#endif
 #include <cstddef>
 #include <cstdint>
 #include <ctime>
