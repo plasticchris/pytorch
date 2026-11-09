@@ -1,5 +1,8 @@
 //NS: CUDACachingAllocator must be included before to get CUDART_VERSION definedi
 
+// Parse chrono/format before HIP's __noinline__ macro is defined.
+#include <chrono>
+
 #include <ATen/cuda/Exceptions.h>
 
 namespace at::cuda {
